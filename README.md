@@ -1,4 +1,4 @@
-# Java Games Wordfeud
+# Java Games Baker 13
 
 #### This project is a solitaire card game built with Jframe.
 
