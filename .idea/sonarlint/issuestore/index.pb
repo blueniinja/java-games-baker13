@@ -15,3 +15,8 @@ W
 -src/main/java/com/jakobniinja/TablePanel.java,3\c\3cebee86611755370194ca87acd7be98ffee448d
 W
 'src/main/java/com/jakobniinja/Card.java,8\d\8d4224ef85dc89517effc7c8cdffd49958fd0535
+\
+,src/main/java/com/jakobniinja/CardStack.java,f\f\ffa61caf36fecc3e19b8fa389ff527de54fe2313
+:
+
+.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302

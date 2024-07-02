@@ -1,5 +1,11 @@
 
-~
-java:S1488"\Immediately return this expression instead of assigning it to the temporary variable "size".(ªÁïªøÿÿÿÿ8çÚÔõ†2
-\
-java:S1161":Add the "@Override" annotation above this method signature(Ú„ÎÕşÿÿÿÿ8çÚÔõ†2
+¤
+java:S1488'"\Immediately return this expression instead of assigning it to the temporary variable "size".(ªÁïªøÿÿÿÿ8áı’¤‡2J$8d2455ee-d152-47d3-b9b0-48257683c0c1
+i
+java:S1948"&Make "deck" transient or serializable.(ë·™8ëı’¤‡2J$0e0862fa-364a-4bf7-9974-6e6e37f74556
+g
+java:S2440"$Remove this instantiation of "Deck".(·Ìß8íı’¤‡2J$6993d325-5bcd-4f1d-9baf-a39c6c549664
+‚
+java:S1161&":Add the "@Override" annotation above this method signature(Ú„ÎÕşÿÿÿÿ8ğı’¤‡2J$15eff681-9e6f-4e8a-b385-ccfd401d34ea
+W
+java:S1161+":Add the "@Override" annotation above this method signature(³ıŸê8Øù–¤‡2

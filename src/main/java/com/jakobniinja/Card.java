@@ -1,5 +1,7 @@
 package com.jakobniinja;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Image;
 
 public class Card {
@@ -27,5 +29,44 @@ public class Card {
     this.image = image;
     width = image.getWidth(null);
     height = image.getHeight(null);
+  }
+
+  public String getRank() {
+    return rank;
+  }
+
+  public int getSuit() {
+    return suit;
+  }
+
+  public int getValue() {
+    return value;
+  }
+
+  public int getY() {
+    return y;
+  }
+
+  public int getX() {
+    return x;
+  }
+
+  public void setXY(int x, int y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  public void addToXY(int changeX, int changeY) {
+    x += changeX;
+    y += changeY;
+  }
+
+  public void draw(Graphics g) {
+    g.drawImage(image, x, y, null);
+  }
+
+  public static void drawOutline(Graphics g, int x, int y) {
+    g.setColor(Color.BLACK);
+    g.drawRoundRect(x, y, width, height, 8, 8);
   }
 }
