@@ -50,7 +50,6 @@ public class Deck {
       String message = "Could not open image file " + FILENAME;
       JOptionPane.showMessageDialog(null, message);
     }
-
   }
 
   public static String[] getRanks() {

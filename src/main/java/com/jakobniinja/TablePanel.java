@@ -3,6 +3,9 @@ package com.jakobniinja;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import javax.swing.JPanel;
 
 public class TablePanel extends JPanel {
@@ -37,7 +40,13 @@ public class TablePanel extends JPanel {
 
   private CardStack[] column = new CardStack[13];
 
-  private Card card;
+  private Card movingCard;
+
+  private int mouseX = 0;
+
+  private int mouseY = 0;
+
+  private int fromCol = 0;
 
   public TablePanel() {
     int x = FOUNDATIONX;
@@ -58,6 +67,54 @@ public class TablePanel extends JPanel {
 
     deck = new Deck();
     deal();
+
+    // mouse listeners
+    addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e) {
+        int x = e.getX();
+        int y = e.getY();
+        clicked(x, y);
+      }
+    });
+
+    addMouseMotionListener(new MouseMotionAdapter() {
+      @Override
+      public void mouseDragged(MouseEvent e) {
+        int x = e.getX();
+        int y = e.getY();
+        dragged(x, y);
+      }
+    });
+  }
+
+  private void dragged(int x, int y) {
+    if (movingCard != null) {
+      int changeX = x - mouseX;
+      int changeY = x - mouseY;
+      movingCard.addToXY(changeX, changeY);
+      mouseX = x;
+      mouseY = y;
+      repaint();
+    }
+  }
+
+
+  private void clicked(int x, int y) {
+    movingCard = null;
+    for (int col = 0; col < 13 && movingCard == null; col++) {
+
+      if (column[col].size() > 0) {
+        Card card = column[col].getLast();
+        if (card.contains(x, y)) {
+          movingCard = card;
+          mouseX = x;
+          mouseY = y;
+          column[col].removeLast();
+          fromCol = col;
+        }
+      }
+    }
   }
 
   public void deal() {
@@ -109,5 +166,8 @@ public class TablePanel extends JPanel {
     }
 
     // draw moving card
+    if (movingCard != null) {
+      movingCard.draw(g);
+    }
   }
 }

@@ -64,4 +64,14 @@ public class CardStack {
   public void clear() {
     cards.clear();
   }
+
+  public void removeLast() {
+    int index = cards.size() - 1;
+    cards.remove(index);
+  }
+
+  public Card getLast() {
+    int index = cards.size() - 1;
+    return cards.get(index);
+  }
 }

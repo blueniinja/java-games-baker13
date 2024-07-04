@@ -69,4 +69,41 @@ public class Card {
     g.setColor(Color.BLACK);
     g.drawRoundRect(x, y, width, height, 8, 8);
   }
+
+  public boolean contains(int pointX, int pointY) {
+    boolean contains = false;
+
+    if (pointX >= x
+        && pointX <= x + width
+        && pointY >= y
+        && pointY <= y + height
+    ) {
+      contains = true;
+    }
+
+    return contains;
+  }
+
+  public boolean isNear(int pointX, int pointY) {
+    boolean isNear= false;
+
+    int offsetX = width/2;
+    int offsetY = height;
+
+    if (pointX > x - offsetX
+        && pointX < x + offsetX
+        && pointY > y - offsetY
+        && pointY < y + offsetY) {
+      isNear = true;
+    }
+    return isNear;
+  }
+
+  public boolean isNear(Card card) {
+    int pointX = card.getX();
+    int pointY = card.getY();
+
+    boolean isNear = isNear(pointX, pointY);
+    return isNear;
+  }
 }
