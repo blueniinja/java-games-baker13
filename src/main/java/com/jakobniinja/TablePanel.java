@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class TablePanel extends JPanel {
@@ -65,8 +66,7 @@ public class TablePanel extends JPanel {
       x += CARDWIDTH + SPACING;
     }
 
-    deck = new Deck();
-    deal();
+    newGame();
 
     // mouse listeners
     addMouseListener(new MouseAdapter() {
@@ -75,6 +75,13 @@ public class TablePanel extends JPanel {
         int x = e.getX();
         int y = e.getY();
         clicked(x, y);
+      }
+
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        int x = e.getX();
+        int y = e.getY();
+        released(x, y);
       }
     });
 
@@ -86,6 +93,85 @@ public class TablePanel extends JPanel {
         dragged(x, y);
       }
     });
+  }
+
+  private void released(int x, int y) {
+    if (movingCard != null) {
+      boolean validMove = false;
+
+      // play on foundation?
+      for (int i = 0; i < 4 && !validMove; i++) {
+        int foundationX = foundation[i].getX();
+        int foundationY = foundation[i].getY();
+
+        if (movingCard.isNear(foundationX, foundationY)) {
+          // empty foundation?
+          if (foundation[i].size() == 0) {
+            if (movingCard.getValue() == 0) {
+              validMove = true;
+              foundation[i].add(movingCard);
+              movingCard = null;
+            }
+          }
+
+          // otherwise, valid suit and rank?
+          else {
+            Card topCard = foundation[i].getLast();
+            if (movingCard.getSuit() == topCard.getSuit() && movingCard.getValue() == topCard.getValue() + 1) {
+              validMove = true;
+              foundation[i].add(movingCard);
+              movingCard = null;
+              isGameOver();
+            }
+          }
+        }
+      }
+      // play on a column?
+      for (int i = 0; i < 13 && !validMove; i++) {
+        if (column[i].size() > 0) {
+          Card card = column[i].getLast();
+
+          if (movingCard.isNear(card) && movingCard.getValue() == card.getValue() - 1) {
+            validMove = true;
+            column[i].add(movingCard);
+            movingCard = null;
+          }
+        }
+      }
+
+      // otherwise, return to column
+      if (!validMove) {
+        column[fromCol].add(movingCard);
+        movingCard = null;
+      }
+
+      repaint();
+    }
+  }
+
+  private void isGameOver() {
+    boolean gameOver = true;
+    for (int i = 0; i < 4 && gameOver; i++) {
+      if (foundation[i].size() != 13) {
+        gameOver = false;
+      }
+    }
+
+    if (gameOver) {
+      String message = "You won! Do you want to play again?";
+      int option = JOptionPane.showConfirmDialog(this, message);
+      if (option == JOptionPane.YES_OPTION) {
+        newGame();
+      } else {
+        System.exit(0);
+      }
+
+    }
+  }
+
+  private void newGame() {
+    deck = new Deck();
+    deal();
   }
 
   private void dragged(int x, int y) {
